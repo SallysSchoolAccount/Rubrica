@@ -13,27 +13,37 @@ public class Contact {
         this.telefonNumer = telefonNumer;
         this.email = email;
     }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getVorname() {
         return vorname;
     }
-    public String getNachname() {
-        return nachname;
-    }
-    public String getTelefonNumer() {
-        return telefonNumer;
-    }
-    public String getEmail() {
-        return email;
-    }
-
     public void setVorname(String vorname) {
         this.vorname = vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
     }
     public void setNachname(String nachname) {
         this.nachname = nachname;
     }
+
+    public String getTelefonNumer() {
+        return telefonNumer;
+    }
     public void setTelefonNumer(String telefonNumer) {
         this.telefonNumer = telefonNumer;
+    }
+
+    public String getEmail() {
+        return email;
     }
     public void setEmail(String email) {}
 }
