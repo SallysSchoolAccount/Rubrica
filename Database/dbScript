@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS t_contacts;
+
+CREATE TABLE t_contacts (
+    Id TEXT PRIMARY KEY NOT NULL DEFAULT (lower(hex(randomblob(16)))),
+    Vorname TEXT,
+    Nachname TEXT,
+    TelefonNummer TEXT,
+    Email TEXT UNIQUE
+);
