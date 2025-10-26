@@ -1,9 +1,12 @@
 DROP TABLE IF EXISTS t_contacts;
 
 CREATE TABLE t_contacts (
-    Id TEXT PRIMARY KEY NOT NULL DEFAULT (lower(hex(randomblob(16)))),
+    Id INTEGER PRIMARY KEY,
     Vorname TEXT,
     Nachname TEXT,
     TelefonNummer TEXT,
-    Email TEXT UNIQUE
+    Email TEXT
 );
+
+INSERT INTO t_contacts (vorname, nachname, telefonnummer, email)
+VALUES ('Salvatore','Pontillo',0764949851,'salvatore.pontillo@gmail.com');
