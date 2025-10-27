@@ -57,4 +57,19 @@ public class ContactDAOImpl implements ContactDAO {
 
         return contacts;
     }
+
+    public int insert(Contact contact) throws SQLException {
+        Connection conn = DatabaseConn.getConnection();
+
+        String sql = "INSERT INTO t_contacts (vorname, nachname, telefonnummer, email) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, contact.getVorname());
+        ps.setString(2, contact.getNachname());
+        ps.setString(3, contact.getTelefonNumer());
+        ps.setString(4, contact.getEmail());
+
+        int restult = ps.executeUpdate();
+
+        return restult;
+    }
 }
