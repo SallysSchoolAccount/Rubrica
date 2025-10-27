@@ -7,8 +7,8 @@ public class Contact {
     private String telefonNumer;
     private String email;
 
-    public Contact(String vorname, String nachname, String telefonNumer, String email) {
-        this.id = 0;
+    public Contact(int id, String vorname, String nachname, String telefonNumer, String email) {
+        this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;
         this.telefonNumer = telefonNumer;
