@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 public class ContactDAOImpl implements ContactDAO {
 
+    //TODO retrieve actual id from db
     //GET
     @Override
     public Contact get(int id) throws SQLException {
@@ -30,7 +31,7 @@ public class ContactDAOImpl implements ContactDAO {
             String telefonnummer = rs.getString("telefonnummer");
             String email = rs.getString("email");
 
-            contact = new Contact(vorname, nachname, telefonnummer, email);
+            contact = new Contact(oid, vorname, nachname, telefonnummer, email);
         }
         return contact;
     }
@@ -51,7 +52,7 @@ public class ContactDAOImpl implements ContactDAO {
             String telefonnummer = rs.getString("telefonnummer");
             String email = rs.getString("email");
 
-            Contact contact = new Contact(vorname, nachname, telefonnummer, email);
+            Contact contact = new Contact(oid, vorname, nachname, telefonnummer, email);
             contacts.add(contact);
         }
 
@@ -71,5 +72,20 @@ public class ContactDAOImpl implements ContactDAO {
         int restult = ps.executeUpdate();
 
         return restult;
+    }
+
+    public int update(Contact contact) throws SQLException {
+        Connection conn = DatabaseConn.getConnection();
+
+        String sql = "UPDATE t_contacts SET vorname = ?, nachname = ?, telefonnummer = ?, email = ? WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, contact.getVorname());
+        ps.setString(2, contact.getNachname());
+        ps.setString(3, contact.getTelefonNumer());
+        ps.setString(4, contact.getEmail());
+        ps.setInt(5, contact.getId());
+        int result = ps.executeUpdate();
+
+        return result;
     }
 }
