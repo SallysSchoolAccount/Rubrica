@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class ContactDAOImpl implements ContactDAO {
 
-    //TODO retrieve actual id from db
     //GET
     @Override
     public Contact get(int id) throws SQLException {
@@ -85,6 +84,10 @@ public class ContactDAOImpl implements ContactDAO {
         ps.setString(4, contact.getEmail());
         ps.setInt(5, contact.getId());
         int result = ps.executeUpdate();
+
+        if (result == 0) {
+            throw new SQLException("Update failed, no rows affected.");
+        }
 
         return result;
     }
