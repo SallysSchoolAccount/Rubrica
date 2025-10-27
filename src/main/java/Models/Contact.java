@@ -55,6 +55,6 @@ public class Contact {
                 ", nachname='" + nachname + '\'' +
                 ", telefonNumer='" + telefonNumer + '\'' +
                 ", email='" + email + '\'' +
-                '}';
+                '}' + '\n';
     }
 }
