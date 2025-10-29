@@ -1,4 +1,4 @@
-.contact-card {
+.contact-box {
   -fx-background-color: -fx-control-inner-background;
   -fx-background-radius: 10;
   -fx-padding: 12;
@@ -7,7 +7,7 @@
   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.2, 0, 2);
 }
 
-.contact-card:hover {
+.contact-box:hover {
   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0.25, 0, 3);
   -fx-background-color: derive(-fx-control-inner-background, -3%);
 }
