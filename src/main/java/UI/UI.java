@@ -1,7 +1,11 @@
 package UI;
 
+import DAO.ContactDAOImpl;
+import Models.Contact;
+import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -21,9 +25,21 @@ public class UI extends Application {
     }
 
     private Region createContentLeft() {
-        contactBox contactBox = new contactBox();
-        VBox result = new VBox(40, contactBox.createContactBox());
+        VBox result = new VBox(60);
+        result.setSpacing(0);
         result.setAlignment(Pos.BASELINE_LEFT);
+
+        try {
+            ContactDAOImpl contactDAO = new ContactDAOImpl();
+            List<Contact> contacts = contactDAO.getAll();
+            for (Contact contact : contacts) {
+                contactBox box = new contactBox(contact);
+                Node visualBox = box.createContactBox();
+                result.getChildren().add(visualBox);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

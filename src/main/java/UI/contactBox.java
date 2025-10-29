@@ -15,14 +15,8 @@ import javafx.scene.layout.VBox;
 public class contactBox {
     private final Contact contact;
 
-    public contactBox() {
-        Contact loaded;
-        try {
-            loaded = new ContactDAOImpl().get(5);
-        } catch (Exception e) {
-            loaded = null;
-        }
-        this.contact = loaded;
+    public contactBox(Contact contact) {
+        this.contact = contact;
     }
 
     public Node createContactBox() {
