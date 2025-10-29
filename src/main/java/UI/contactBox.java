@@ -8,10 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import Con
 
 public class contactBox {
-    ContactDAOImpl
     Contact contact = new Contact(1, "Mario", "Rossi", "0123456789", "");
 
     public Node createContactBox() {
