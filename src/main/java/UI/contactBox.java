@@ -1,6 +1,5 @@
 package UI;
 
-import DAO.ContactDAOImpl;
 import Models.Contact;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -24,6 +23,7 @@ public class contactBox {
 
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setMaxWidth(300);
         vBox.getStyleClass().add("contact-box"); //Stylesheet
 
 //      For making the whole box clickable

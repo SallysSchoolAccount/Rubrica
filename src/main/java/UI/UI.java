@@ -18,7 +18,7 @@ public class UI extends Application {
         launch(args);
     }
     public void start(Stage stage) {
-        Scene scene = new Scene(createContentLeft(), 1200, 600);
+        Scene scene = new Scene(createContentLeft(), 900, 600);
         scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
@@ -26,7 +26,9 @@ public class UI extends Application {
 
     private Region createContentLeft() {
         VBox result = new VBox(60);
+
         result.setSpacing(0);
+        result.setMaxWidth(310);
         result.setAlignment(Pos.BASELINE_LEFT);
 
         try {
