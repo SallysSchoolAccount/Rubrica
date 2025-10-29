@@ -18,7 +18,7 @@ public class contactBox {
     public contactBox() {
         Contact loaded;
         try {
-            loaded = new ContactDAOImpl().get(1);
+            loaded = new ContactDAOImpl().get(5);
         } catch (Exception e) {
             loaded = null;
         }
@@ -27,12 +27,16 @@ public class contactBox {
 
     public Node createContactBox() {
         HBox hBox = new HBox(40, createPfp(), createName());
+
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.getStyleClass().add("contact-box"); //Stylesheet
+
+//      For making the whole box clickable
         vBox.setCursor(Cursor.HAND);
         vBox.setPickOnBounds(true);
-        vBox.setOnMouseClicked(evt -> System.out.println("Clicked: " + contact.getVorname() + " " + contact.getNachname()));
+        vBox.setOnMouseClicked(evt -> System.out.println("Clicked: " + contact.toString()));
+
         return vBox;
     }
 
@@ -40,8 +44,10 @@ public class contactBox {
         String vorname = contact != null ? contact.getVorname() : "";
         String nachname = contact != null ? contact.getNachname() : "";
         Label labelFullname = new Label(vorname + " " + nachname);
+
         labelFullname.setPadding(new Insets(10, 0, 0, 0));
         labelFullname.getStyleClass().add("contact-name");//Stylesheet
+
         return labelFullname;
     }
     private Node createPfp() {
