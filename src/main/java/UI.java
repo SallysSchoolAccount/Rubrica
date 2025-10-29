@@ -4,6 +4,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -30,7 +32,7 @@ public class UI extends Application {
     }
 
     private Node createContactBox() {
-        HBox hBox = new HBox(20, createName());
+        HBox hBox = new HBox(20, createPfp(), createName());
         VBox vBox = new VBox(20, hBox);
         return vBox;
     }
@@ -42,6 +44,12 @@ public class UI extends Application {
         return result;
     }
     private Node createPfp() {
-        return null;
+        Image image = new Image("profilePicture.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(24);
+        imageView.setFitWidth(24);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        return imageView;
     }
 }
