@@ -1,5 +1,6 @@
 package UI;
 
+import DAO.ContactDAOImpl;
 import Models.Contact;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -10,18 +11,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 
 public class contactBox {
-    Contact contact = new Contact(1, "Mario", "Rossi", "0123456789", "");
+    private final Contact contact;
+
+    public contactBox() {
+        Contact loaded;
+        try {
+            loaded = new ContactDAOImpl().get(1);
+        } catch (Exception e) {
+            loaded = null;
+        }
+        this.contact = loaded;
+    }
 
     public Node createContactBox() {
         HBox hBox = new HBox(40, createPfp(), createName());
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.getStyleClass().add("contact-box"); //Stylesheet
-
-//      Stuff for clickable
         vBox.setCursor(Cursor.HAND);
         vBox.setPickOnBounds(true);
         vBox.setOnMouseClicked(evt -> System.out.println("Clicked: " + contact.getVorname() + " " + contact.getNachname()));
@@ -29,8 +37,8 @@ public class contactBox {
     }
 
     private Node createName() {
-        String vorname = contact.getVorname();
-        String nachname = contact.getNachname();
+        String vorname = contact != null ? contact.getVorname() : "";
+        String nachname = contact != null ? contact.getNachname() : "";
         Label labelFullname = new Label(vorname + " " + nachname);
         labelFullname.setPadding(new Insets(10, 0, 0, 0));
         labelFullname.getStyleClass().add("contact-name");//Stylesheet
