@@ -1,4 +1,5 @@
-import DAO.ContactDAO;
+package DAO;
+
 import Models.Contact;
 
 import java.util.ArrayList;
