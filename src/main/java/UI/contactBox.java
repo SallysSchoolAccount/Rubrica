@@ -16,6 +16,7 @@ public class contactBox {
         HBox hBox = new HBox(40, createPfp(), createName());
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.getStyleClass().add("contact-box");
         return vBox;
     }
 
@@ -24,6 +25,7 @@ public class contactBox {
         String nachname = contact.getNachname();
         Label result = new Label(vorname + " " + nachname);
         result.setPadding(new Insets(10, 0, 0, 0));
+        result.getStyleClass().add("contact-name");
         return result;
     }
     private Node createPfp() {

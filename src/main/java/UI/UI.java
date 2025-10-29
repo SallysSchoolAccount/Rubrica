@@ -15,6 +15,7 @@ public class UI extends Application {
     }
     public void start(Stage stage) {
         Scene scene = new Scene(createContentLeft(), 1200, 600);
+        scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
