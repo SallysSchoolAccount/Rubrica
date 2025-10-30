@@ -5,8 +5,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -19,7 +17,8 @@ public class contactBox {
     }
 
     public Node createContactBox() {
-        HBox hBox = new HBox(40, createPfp(), createName());
+        uiElements pfp = new uiElements();
+        HBox hBox = new HBox(40, pfp.createPfp(), createName());
 
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
@@ -43,14 +42,5 @@ public class contactBox {
         labelFullname.getStyleClass().add("contact-name");//Stylesheet
 
         return labelFullname;
-    }
-    private Node createPfp() {
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("profilePicture.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        return imageView;
     }
 }
