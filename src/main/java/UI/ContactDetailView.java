@@ -1,5 +1,6 @@
 package UI;
 
+import DAO.ContactDAOImpl;
 import Models.Contact;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,10 +13,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.sql.SQLException;
+
 public class ContactDetailView {
     private final Contact contact;
     private boolean isEditing = false;
     private VBox vBox;
+    private Runnable onContactUpdated;
 
     private TextField vornameField;
     private TextField nachnameField;
@@ -24,6 +28,10 @@ public class ContactDetailView {
 
     public ContactDetailView(Contact contact) {
         this.contact = contact;
+    }
+
+    public void setOnContactUpdated(Runnable onContactUpdated) {
+        this.onContactUpdated = onContactUpdated;
     }
 
     public Node createDetailView() {
@@ -146,9 +154,17 @@ public class ContactDetailView {
         contact.setTelefonNumer(telefonnummerField.getText());
         contact.setEmail(emailField.getText());
 
-        // TODO: Save to database using ContactDAO
-        // ContactDAOImpl contactDAO = new ContactDAOImpl();
-        // contactDAO.update(contact);
+        try {
+            ContactDAOImpl contactDAO = new ContactDAOImpl();
+            contactDAO.update(contact);
+            if (onContactUpdated != null) {
+                onContactUpdated.run();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // TODO: Show error message to user
+            System.err.println("Failed to save contact: " + e.getMessage());
+        }
     }
 
 }

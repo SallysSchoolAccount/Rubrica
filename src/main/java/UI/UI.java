@@ -75,7 +75,17 @@ public class UI extends Application {
 
     public void showContactDetails(Contact contact) {
         ContactDetailView detailView = new ContactDetailView(contact);
+        detailView.setOnContactUpdated(this::refreshContactList);
         detailPane.getChildren().clear();
         detailPane.getChildren().add(detailView.createDetailView());
+    }
+
+    private void refreshContactList() {
+        HBox mainLayout = (HBox) detailPane.getParent();
+        ScrollPane contactPane = (ScrollPane) mainLayout.getChildren().get(0);
+
+        Region content = createContentLeft();
+        contactPane.setContent(content);
+        content.setNodeOrientation(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT);
     }
 }
