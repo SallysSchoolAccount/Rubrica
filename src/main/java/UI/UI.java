@@ -8,26 +8,45 @@ import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class UI extends Application {
 
+    private VBox detailPane;
+
     //Both for launching
     public static void main(String[] args) {
         launch(args);
     }
     public void start(Stage stage) {
+        HBox mainLayout = new HBox();
+
         Region content = createContentLeft();
-        ScrollPane scrollPane = new ScrollPane(content);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setPannable(true);
-        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        ScrollPane contactPane = new ScrollPane(content);
+        contactPane.setFitToWidth(true);
+        contactPane.setFitToHeight(true);
+        contactPane.setPannable(true);
+        contactPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         content.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        Scene scene = new Scene(scrollPane, 900, 600);
+        contactPane.setMaxWidth(310);
+
+        detailPane = new VBox();
+        detailPane.setAlignment(Pos.CENTER);
+        detailPane.setPrefWidth(590);
+        detailPane.getStyleClass().add("detail-pane");
+
+        Label placeholder = new Label("Select a contact to view details");
+        placeholder.getStyleClass().add("placeholder-text");
+        detailPane.getChildren().add(placeholder);
+
+        mainLayout.getChildren().addAll(contactPane, detailPane);
+
+        Scene scene = new Scene(mainLayout, 900, 600);
         scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
@@ -44,7 +63,7 @@ public class UI extends Application {
             ContactDAOImpl contactDAO = new ContactDAOImpl();
             List<Contact> contacts = contactDAO.getAll();
             for (Contact contact : contacts) {
-                contactBox box = new contactBox(contact);
+                contactBox box = new contactBox(contact, this::showContactDetails);
                 Node visualBox = box.createContactBox();
                 result.getChildren().add(visualBox);
             }
@@ -52,5 +71,11 @@ public class UI extends Application {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public void showContactDetails(Contact contact) {
+        ContactDetailView detailView = new ContactDetailView(contact);
+        detailPane.getChildren().clear();
+        detailPane.getChildren().add(detailView.createDetailView());
     }
 }
