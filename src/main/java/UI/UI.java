@@ -4,12 +4,15 @@ import DAO.ContactDAOImpl;
 import Models.Contact;
 import java.util.List;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -24,6 +27,21 @@ public class UI extends Application {
         launch(args);
     }
     public void start(Stage stage) {
+        BorderPane root = new BorderPane();
+
+        // Top bar with "Add Contact" button
+        HBox topBar = new HBox();
+        topBar.setPadding(new Insets(10));
+        topBar.setAlignment(Pos.CENTER_RIGHT);
+        topBar.getStyleClass().add("top-bar");
+
+        Button addContactButton = new Button("+ New Contact");
+        addContactButton.getStyleClass().add("add-contact-button");
+        addContactButton.setOnAction(e -> showNewContactForm());
+
+        topBar.getChildren().add(addContactButton);
+
+        // Main content area
         HBox mainLayout = new HBox();
 
         Region content = createContentLeft();
@@ -39,14 +57,16 @@ public class UI extends Application {
         detailPane.setAlignment(Pos.CENTER);
         detailPane.setPrefWidth(590);
         detailPane.getStyleClass().add("detail-pane");
-
         Label placeholder = new Label("Select a contact to view details");
         placeholder.getStyleClass().add("placeholder-text");
         detailPane.getChildren().add(placeholder);
 
         mainLayout.getChildren().addAll(contactPane, detailPane);
 
-        Scene scene = new Scene(mainLayout, 900, 600);
+        root.setTop(topBar);
+        root.setCenter(mainLayout);
+
+        Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
@@ -78,6 +98,23 @@ public class UI extends Application {
         detailView.setOnContactUpdated(this::refreshContactList);
         detailPane.getChildren().clear();
         detailPane.getChildren().add(detailView.createDetailView());
+    }
+
+    private void showNewContactForm() {
+        createContactView newContactView = new createContactView();
+        newContactView.setOnContactCreated(() -> {
+            refreshContactList();
+            showPlaceholder();
+        });
+        newContactView.setOnCancel(this::showPlaceholder);
+        detailPane.getChildren().clear();
+        detailPane.getChildren().add(newContactView.createNewContactForm());
+    }
+    private void showPlaceholder() {
+        detailPane.getChildren().clear();
+        Label placeholder = new Label("Select a contact to view details");
+        placeholder.getStyleClass().add("placeholder-text");
+        detailPane.getChildren().add(placeholder);
     }
 
     private void refreshContactList() {
