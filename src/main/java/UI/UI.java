@@ -4,9 +4,11 @@ import DAO.ContactDAOImpl;
 import Models.Contact;
 import java.util.List;
 import javafx.application.Application;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,7 +20,14 @@ public class UI extends Application {
         launch(args);
     }
     public void start(Stage stage) {
-        Scene scene = new Scene(createContentLeft(), 900, 600);
+        Region content = createContentLeft();
+        ScrollPane scrollPane = new ScrollPane(content);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        content.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        Scene scene = new Scene(scrollPane, 900, 600);
         scene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();

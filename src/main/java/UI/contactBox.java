@@ -17,13 +17,13 @@ public class contactBox {
     }
 
     public Node createContactBox() {
-        profilePicture pfp = new profilePicture();
-        HBox hBox = new HBox(40, pfp.createPfp(20,20), createName());
+        uiElements pfp = new uiElements();
+        HBox hBox = new HBox(40, pfp.createPfp(), createName());
 
         VBox vBox = new VBox(40, hBox);
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.setMaxWidth(300);
-        vBox.getStyleClass().add("contact-box"); //Stylesheet
+        vBox.getStyleClass().add("contact-card"); //Stylesheet
 
 //      For making the whole box clickable
         vBox.setCursor(Cursor.HAND);
