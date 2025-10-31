@@ -29,29 +29,19 @@ public class UI extends Application {
     public void start(Stage stage) {
         BorderPane root = new BorderPane();
 
-        // Top bar with "Add Contact" button
         HBox topBar = new HBox();
         topBar.setPadding(new Insets(10));
         topBar.setAlignment(Pos.CENTER_RIGHT);
         topBar.getStyleClass().add("top-bar");
-
         Button addContactButton = new Button("+ New Contact");
         addContactButton.getStyleClass().add("add-contact-button");
         addContactButton.setOnAction(e -> showNewContactForm());
-
         topBar.getChildren().add(addContactButton);
 
-        // Main content area
         HBox mainLayout = new HBox();
 
         Region content = createContentLeft();
-        ScrollPane contactPane = new ScrollPane(content);
-        contactPane.setFitToWidth(true);
-        contactPane.setFitToHeight(true);
-        contactPane.setPannable(true);
-        contactPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        content.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        contactPane.setMaxWidth(310);
+        ScrollPane contactPane = scrollpane(content);
 
         detailPane = new VBox();
         detailPane.setAlignment(Pos.CENTER);
@@ -78,6 +68,7 @@ public class UI extends Application {
         result.setSpacing(0);
         result.setMaxWidth(310);
         result.setAlignment(Pos.BASELINE_LEFT);
+        result.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
         try {
             ContactDAOImpl contactDAO = new ContactDAOImpl();
@@ -91,6 +82,15 @@ public class UI extends Application {
             e.printStackTrace();
         }
         return result;
+    }
+    public ScrollPane scrollpane(Region region) {
+        ScrollPane scrollPane = new ScrollPane(region);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPannable(true);
+        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        scrollPane.setMaxWidth(310);
+        return scrollPane;
     }
 
     public void showContactDetails(Contact contact) {
@@ -116,7 +116,6 @@ public class UI extends Application {
         placeholder.getStyleClass().add("placeholder-text");
         detailPane.getChildren().add(placeholder);
     }
-
     private void refreshContactList() {
         HBox mainLayout = (HBox) detailPane.getParent();
         ScrollPane contactPane = (ScrollPane) mainLayout.getChildren().get(0);

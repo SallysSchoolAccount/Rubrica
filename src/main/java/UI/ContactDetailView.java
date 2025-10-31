@@ -29,7 +29,6 @@ public class ContactDetailView {
     public ContactDetailView(Contact contact) {
         this.contact = contact;
     }
-
     public void setOnContactUpdated(Runnable onContactUpdated) {
         this.onContactUpdated = onContactUpdated;
     }
@@ -46,7 +45,6 @@ public class ContactDetailView {
 
         uiElements pfp = new uiElements();
 
-        // Name
         Label nameLabel = new Label(contact.getVorname() + " " + contact.getNachname());
         nameLabel.setFont(Font.font("System", FontWeight.BOLD, 24));
 
@@ -87,6 +85,7 @@ public class ContactDetailView {
         vBox.getChildren().clear();
 
         uiElements pfp = new uiElements();
+        uiElements editField = new uiElements();
         vBox.getChildren().add(pfp.createPfp(150, 150));
 
         VBox editBox = new VBox(15);
@@ -94,10 +93,10 @@ public class ContactDetailView {
         editBox.setPadding(new Insets(20, 0, 0, 0));
 
         vornameField = new TextField(contact.getVorname());
-        HBox vornameBox = createEditField("First Name:", vornameField);
+        HBox vornameBox = editField.createEditField("Name: ", vornameField, 100, 200, 14);
 
         nachnameField = new TextField(contact.getNachname());
-        HBox nachnameBox = createEditField("Last Name:", nachnameField);
+        HBox nachnameBox = editField.createEditField("Last Name: ", nachnameField, 100, 200, 14);
 
         telefonnummerField = new TextField(contact.getTelefonNumer());
         HBox phoneBox = createEditField("Phone:", telefonnummerField);

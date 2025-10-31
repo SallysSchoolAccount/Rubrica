@@ -17,11 +17,6 @@ public interface ContactDAO extends DAO<Contact> {
     }
 
     @Override
-    default int save(Contact contact) throws SQLException {
-        return 0;
-    }
-
-    @Override
     default int insert(Contact contact) throws SQLException {
         return 0;
     }
